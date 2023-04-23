@@ -31,28 +31,47 @@ Referring video object segmentation (RVOS) is an emerging multimodal task aiming
 ### Refer-Youtube-VOS
 1. Download the dataset from the competition's website in [Codalab](https://competitions.codalab.org/competitions/29139#participate-get_data).
 2. We can get two .json file meta_expression.json and meta.json
-3. Run this code to integrate them into a new .json file:
-    `python tools/data/merge_meta_json.py`
-4. They are recommended to be organized as following:
+3. Run this code to integrate them into a new .json file: `python tools/data/merge_meta_json.py`
+   The ready-made .json are stored in `Annotations/refer-youtube-vos/new_train.json`
+   The structure of the new json file is as follow:
 ```text
-    refer_youtube_vos/ 
+videos
+    ├── 003234408d
+    │   └── objects
+    │       ├── 1
+    │       │   ├── category : 'penguin'
+    │       │   ├── frames : {"00000", "00005"...}
+    │       │   └── expressions : {"a penguin is on the left in the front with many others on the hill", ...}
+    │       ├── 2
+    │       │   ├── category : 'penguin'
+    │       │   ├── frames : {"00000", "00005"...}
+    │       │   └── expressions : {"a penguin is on the left in the front with many others on the hill", ...}
+    │       ├──...
+    ├── ...
+```
+4. The dataset of Refer-youtube-vos is recommended to be organized as following:
+```text
+refer_youtube_vos/ 
     ├── train/
     │   ├── JPEGImages/
     │   │   └── */ (video folders)
     │   │       └── *.jpg (frame image files) 
-    │   └── Annotations/
-    │       └── */ (video folders)
-    │           └── *.png (mask annotation files) 
-    ├── valid/
-    │   └── JPEGImages/
-    │       └── */ (video folders)
-    │           └── *.jpg (frame image files) 
-    └── meta_expressions/
-        ├── train/
-        │   └── meta_expressions.json  (text annotations)
-        └── valid/
-            └── meta_expressions.json  (text annotations)
+    │   ├── Annotations/
+    │   │   └── */ (video folders)
+    │   │       └── *.png (mask annotation files) 
+    │   │
+    │   └── new_train.json (text annotations)
+    │
+    └── valid/
+        ├── JPEGImages/
+        │    └── */ (video folders)
+        │        └── *.jpg (frame image files)
+        ├── Annotations/
+        │   └── */ (video folders)
+        │       └── *.png (mask annotation files)
+        │
+        └── new_valid.json (text annotations)
 ```
 
-### Refer-Youtube-VOS
+### Ref-DAVIS-2017
 1. Download

@@ -72,6 +72,55 @@ refer_youtube_vos/
         │
         └── new_valid.json (text annotations)
 ```
-
 ### Ref-DAVIS-2017
-1. Download
+1. The dataset and the language queries used in the experiments can be found in DAVIS 2017 website [DAVIS](https://davischallenge.org/davis2017/code.html)
+2. For convenience, we convert the data structure of DAVIS-2017 dataset into youtube-vos-like as following:
+```text
+videos
+    ├── bear
+    │   └── objects
+    │       ├── 1
+    │       │   ├── category : 'bear'
+    │       │   ├── frames : {"00000", "00005"...}
+    │       │   └── expressions : {"a brown bear", "a brown bear moving", "a bear", "a brown bear"}
+    │       ├──...
+    ├── ...
+```
+
+3. The dataset of Refer-youtube-vos is recommended to be organized as following:
+```text
+Ref-DAVIS/ 
+    ├── train/
+    │   ├── JPEGImages/
+    │   │   └── */ (video folders)
+    │   │       └── *.jpg (frame image files) 
+    │   ├── Annotations/
+    │   │   └── */ (video folders)
+    │   │       └── *.png (mask annotation files) 
+    │   │
+    │   └── new_train.json (text annotations)
+    │
+    └── valid/
+        ├── JPEGImages/
+        │    └── */ (video folders)
+        │        └── *.jpg (frame image files)
+        ├── Annotations/
+        │   └── */ (video folders)
+        │       └── *.png (mask annotation files)
+        │
+        └── new_valid.json (text annotations)
+```
+# How to Run the Code
+1. First, clone this repo to your local machine using:
+`git clone https://github.com/SAMSTAYREAL/PRVOS`
+2. Environment configuration as shown in Prerequisites
+
+## Training
+For training the models with the different datasets, the command is the following:
+1. Training on Refer-Youtube-VOS/train: `python ./Baseline/pretrain.py --mode train_yv --splits train --dataset refer-yv-2019`
+## Evaluation
+1. The following command evaluates our model on the public validation subset of Refer-YouTube-VOS dataset. Since annotations are not publicly available for this subset, our code generates a zip file with the predicted masks:
+`python ./Baseline/pretrain.py --eval --mode eval_yv --splits valid --dataset refer-yv-2019 --test_dataset refer-yv-2019 --checkpoint ./checkpoint/refer-yv-2019/model/e0020.pth --epoch 20`
+2. The following command evaluates our model on the public validation subset of DAVIS-2017 dataset.
+- Pre-training only: `python ./Baseline/pretrain.py --eval --mode eval_davis --splits valid --dataset ref-davis --test_dataset ref-davis --checkpoint ./checkpoint/ref-davis/model/e0020.pth --epoch 20`
+- Finetuned: `python ./Baseline/pretrain.py --eval --mode eval_davis --splits valid --dataset ref-davis --test_dataset ref-davis --checkpoint ./checkpoint/ref-davis/model/finetuned.pth --epoch 21`

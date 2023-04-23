@@ -1,7 +1,18 @@
 # PRVOS
 
-This repo contains the official implementation of the paper 'Uncertainty-aware Adaptive Pseudo-Labeling for Referring Video Object Segmentation'
-
+This repo contains the official implementation of the paper:
+<div align="center">
+<h1>
+<b>
+Uncertainty-aware Adaptive Pseudo-Labeling for Referring Video Object Segmentation
+</b>
+</h1>
+<h4>
+<b>
+Jinpeng Mi, Zhiqian Chen, Kunpeng Yuan, Jianwei Zhang
+</b>
+</h4>
+</div>
 <div align="center">
   <img src="PRVOS/structure.png">
 </div>
